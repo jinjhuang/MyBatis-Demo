@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tw.dps.mybatis.dao.ApiMapper" >
+  <resultMap id="BaseResultMap" type="com.tw.dps.mybatis.model.Api" >
+    <constructor >
+      <idArg column="api_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="api_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="description" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="api_version" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="api_path" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="upstream" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="team" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="squad" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="header" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="md5_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="service_email" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="api_status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="active_plugins" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="created_by" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="created_at" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updated_by" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="updated_at" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    api_id, api_name, description, api_version, api_path, upstream, team, squad, header, 
+    md5_code, service_email, api_status, active_plugins, created_by, created_at, updated_by, 
+    updated_at
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tw.dps.mybatis.model.ApiExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from api
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from api
+    where api_id = #{apiId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from api
+    where api_id = #{apiId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tw.dps.mybatis.model.ApiExample" >
+    delete from api
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tw.dps.mybatis.model.Api" >
+    insert into api (api_id, api_name, description, 
+      api_version, api_path, upstream, 
+      team, squad, header, 
+      md5_code, service_email, api_status, 
+      active_plugins, created_by, created_at, 
+      updated_by, updated_at)
+    values (#{apiId,jdbcType=INTEGER}, #{apiName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{apiVersion,jdbcType=VARCHAR}, #{apiPath,jdbcType=VARCHAR}, #{upstream,jdbcType=VARCHAR}, 
+      #{team,jdbcType=INTEGER}, #{squad,jdbcType=INTEGER}, #{header,jdbcType=VARCHAR}, 
+      #{md5Code,jdbcType=VARCHAR}, #{serviceEmail,jdbcType=VARCHAR}, #{apiStatus,jdbcType=VARCHAR}, 
+      #{activePlugins,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{updatedAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tw.dps.mybatis.model.Api" >
+    insert into api
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="apiId != null" >
+        api_id,
+      </if>
+      <if test="apiName != null" >
+        api_name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="apiVersion != null" >
+        api_version,
+      </if>
+      <if test="apiPath != null" >
+        api_path,
+      </if>
+      <if test="upstream != null" >
+        upstream,
+      </if>
+      <if test="team != null" >
+        team,
+      </if>
+      <if test="squad != null" >
+        squad,
+      </if>
+      <if test="header != null" >
+        header,
+      </if>
+      <if test="md5Code != null" >
+        md5_code,
+      </if>
+      <if test="serviceEmail != null" >
+        service_email,
+      </if>
+      <if test="apiStatus != null" >
+        api_status,
+      </if>
+      <if test="activePlugins != null" >
+        active_plugins,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+      <if test="updatedAt != null" >
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="apiId != null" >
+        #{apiId,jdbcType=INTEGER},
+      </if>
+      <if test="apiName != null" >
+        #{apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="apiVersion != null" >
+        #{apiVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="apiPath != null" >
+        #{apiPath,jdbcType=VARCHAR},
+      </if>
+      <if test="upstream != null" >
+        #{upstream,jdbcType=VARCHAR},
+      </if>
+      <if test="team != null" >
+        #{team,jdbcType=INTEGER},
+      </if>
+      <if test="squad != null" >
+        #{squad,jdbcType=INTEGER},
+      </if>
+      <if test="header != null" >
+        #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="md5Code != null" >
+        #{md5Code,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEmail != null" >
+        #{serviceEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="apiStatus != null" >
+        #{apiStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="activePlugins != null" >
+        #{activePlugins,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tw.dps.mybatis.model.ApiExample" resultType="java.lang.Integer" >
+    select count(*) from api
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update api
+    <set >
+      <if test="record.apiId != null" >
+        api_id = #{record.apiId,jdbcType=INTEGER},
+      </if>
+      <if test="record.apiName != null" >
+        api_name = #{record.apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiVersion != null" >
+        api_version = #{record.apiVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiPath != null" >
+        api_path = #{record.apiPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upstream != null" >
+        upstream = #{record.upstream,jdbcType=VARCHAR},
+      </if>
+      <if test="record.team != null" >
+        team = #{record.team,jdbcType=INTEGER},
+      </if>
+      <if test="record.squad != null" >
+        squad = #{record.squad,jdbcType=INTEGER},
+      </if>
+      <if test="record.header != null" >
+        header = #{record.header,jdbcType=VARCHAR},
+      </if>
+      <if test="record.md5Code != null" >
+        md5_code = #{record.md5Code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceEmail != null" >
+        service_email = #{record.serviceEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiStatus != null" >
+        api_status = #{record.apiStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activePlugins != null" >
+        active_plugins = #{record.activePlugins,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null" >
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedAt != null" >
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update api
+    set api_id = #{record.apiId,jdbcType=INTEGER},
+      api_name = #{record.apiName,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      api_version = #{record.apiVersion,jdbcType=VARCHAR},
+      api_path = #{record.apiPath,jdbcType=VARCHAR},
+      upstream = #{record.upstream,jdbcType=VARCHAR},
+      team = #{record.team,jdbcType=INTEGER},
+      squad = #{record.squad,jdbcType=INTEGER},
+      header = #{record.header,jdbcType=VARCHAR},
+      md5_code = #{record.md5Code,jdbcType=VARCHAR},
+      service_email = #{record.serviceEmail,jdbcType=VARCHAR},
+      api_status = #{record.apiStatus,jdbcType=VARCHAR},
+      active_plugins = #{record.activePlugins,jdbcType=VARCHAR},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tw.dps.mybatis.model.Api" >
+    update api
+    <set >
+      <if test="apiName != null" >
+        api_name = #{apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="apiVersion != null" >
+        api_version = #{apiVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="apiPath != null" >
+        api_path = #{apiPath,jdbcType=VARCHAR},
+      </if>
+      <if test="upstream != null" >
+        upstream = #{upstream,jdbcType=VARCHAR},
+      </if>
+      <if test="team != null" >
+        team = #{team,jdbcType=INTEGER},
+      </if>
+      <if test="squad != null" >
+        squad = #{squad,jdbcType=INTEGER},
+      </if>
+      <if test="header != null" >
+        header = #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="md5Code != null" >
+        md5_code = #{md5Code,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEmail != null" >
+        service_email = #{serviceEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="apiStatus != null" >
+        api_status = #{apiStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="activePlugins != null" >
+        active_plugins = #{activePlugins,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedAt != null" >
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where api_id = #{apiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tw.dps.mybatis.model.Api" >
+    update api
+    set api_name = #{apiName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      api_version = #{apiVersion,jdbcType=VARCHAR},
+      api_path = #{apiPath,jdbcType=VARCHAR},
+      upstream = #{upstream,jdbcType=VARCHAR},
+      team = #{team,jdbcType=INTEGER},
+      squad = #{squad,jdbcType=INTEGER},
+      header = #{header,jdbcType=VARCHAR},
+      md5_code = #{md5Code,jdbcType=VARCHAR},
+      service_email = #{serviceEmail,jdbcType=VARCHAR},
+      api_status = #{apiStatus,jdbcType=VARCHAR},
+      active_plugins = #{activePlugins,jdbcType=VARCHAR},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+    where api_id = #{apiId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tw.dps.mybatis.dao.UserAssignmentMapper" >
+  <resultMap id="BaseResultMap" type="com.tw.dps.mybatis.model.UserAssignment" >
+    <constructor >
+      <idArg column="user_assignment_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="org_unit_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="user_role" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="created_at" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updated_at" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="created_by" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="updated_by" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_assignment_id, user_id, org_unit_id, user_role, created_at, updated_at, created_by, 
+    updated_by
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_assignment
+    where user_assignment_id = #{userAssignmentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_assignment
+    where user_assignment_id = #{userAssignmentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tw.dps.mybatis.model.UserAssignment" >
+    insert into user_assignment (user_assignment_id, user_id, org_unit_id, 
+      user_role, created_at, updated_at, 
+      created_by, updated_by)
+    values (#{userAssignmentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{orgUnitId,jdbcType=INTEGER}, 
+      #{userRole,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{createdBy,jdbcType=VARCHAR}, #{updatedBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tw.dps.mybatis.model.UserAssignment" >
+    insert into user_assignment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userAssignmentId != null" >
+        user_assignment_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="orgUnitId != null" >
+        org_unit_id,
+      </if>
+      <if test="userRole != null" >
+        user_role,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedAt != null" >
+        updated_at,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userAssignmentId != null" >
+        #{userAssignmentId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="orgUnitId != null" >
+        #{orgUnitId,jdbcType=INTEGER},
+      </if>
+      <if test="userRole != null" >
+        #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tw.dps.mybatis.model.UserAssignment" >
+    update user_assignment
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="orgUnitId != null" >
+        org_unit_id = #{orgUnitId,jdbcType=INTEGER},
+      </if>
+      <if test="userRole != null" >
+        user_role = #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_assignment_id = #{userAssignmentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tw.dps.mybatis.model.UserAssignment" >
+    update user_assignment
+    set user_id = #{userId,jdbcType=INTEGER},
+      org_unit_id = #{orgUnitId,jdbcType=INTEGER},
+      user_role = #{userRole,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
+    where user_assignment_id = #{userAssignmentId,jdbcType=INTEGER}
+  </update>
+</mapper>
